@@ -1,0 +1,50 @@
+.ov__block {
+	font-family: monospace;
+	font-size: 14px;
+	color: #2d2d2d;
+}
+
+.ov__line {
+	margin: 2px 0;
+}
+
+.ov__item {
+	margin: 2px 0;
+}
+
+.ov__keyline {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+}
+
+.ov__clickable {
+	cursor: pointer;
+	user-select: none;
+}
+
+.ov__arrow {
+	color: #a855f7;
+	font-size: 12px;
+}
+
+.ov__dot {
+	color: #9ca3af;
+	font-size: 10px;
+}
+
+.ov__key {
+	color: #16a34a;
+}
+
+.ov__colon {
+	color: #6b7280;
+}
+
+.ov__value {
+	color: #2563eb;
+}
+
+.ov__bracket {
+	color: #9ca3af;
+}

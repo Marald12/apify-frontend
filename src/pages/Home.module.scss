@@ -1,0 +1,29 @@
+.page {
+	display: flex;
+
+	> div {
+		height: 90vh;
+	}
+
+	> div:nth-child(1) {
+		border-left: 1px solid #eee;
+		border-bottom: 1px solid #eee;
+		height: 90vh;
+		flex: 25%;
+	}
+
+	> div:nth-child(2) {
+		border-left: 1px solid #eee;
+		border-right: 1px solid #eee;
+		border-bottom: 1px solid #eee;
+		height: 90vh;
+		flex: 50%;
+	}
+
+	> div:nth-child(3) {
+		border-right: 1px solid #eee;
+		border-bottom: 1px solid #eee;
+		height: 90vh;
+		flex: 25%;
+	}
+}

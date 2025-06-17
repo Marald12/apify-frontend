@@ -1,0 +1,88 @@
+.tabs {
+	display: flex;
+	flex-direction: column;
+
+	&__header {
+		display: flex;
+		gap: 10px;
+		padding: 15px;
+
+		> input {
+			font-family: 'Roboto', sans-serif;
+			font-weight: 400;
+			font-size: 16px;
+			line-height: 18px;
+			padding: 0 15px;
+			border-radius: 8px;
+			border: 1px solid #1543ad;
+			outline: none;
+		}
+
+		> button {
+			background: #1543ad;
+			border: none;
+			padding: 8px 12px;
+			border-radius: 50%;
+			color: #fff;
+			font-family: 'Roboto', sans-serif;
+			font-weight: 400;
+			font-size: 18px;
+			line-height: 20px;
+			cursor: pointer;
+			transition: all 0.3s ease;
+
+			&:hover {
+				transform: scale(1.1);
+			}
+		}
+	}
+
+	&__items {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+
+		&_item {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			cursor: pointer;
+			transition: all 0.3s ease;
+			position: relative;
+			padding: 10px 15px;
+
+			> div {
+				color: #fff;
+				background: #7ecf2b;
+				padding: 4px 6px;
+				border-radius: 4px;
+				font-family: 'Roboto', sans-serif;
+				font-weight: 500;
+				font-size: 14px;
+				line-height: 16px;
+			}
+
+			> span {
+				font-family: 'Montserrat', sans-serif;
+				font-weight: 500;
+				font-size: 16px;
+				line-height: 18px;
+			}
+
+			&.active {
+				&::before {
+					content: '';
+					width: 2px;
+					height: 100%;
+					background: #1543ad;
+					position: absolute;
+					left: 0;
+				}
+			}
+
+			&:hover {
+				background: #eee;
+			}
+		}
+	}
+}
