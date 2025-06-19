@@ -1,4 +1,4 @@
-import Params from '../body-request/params/Params.tsx'
+import Params from '../body-request/ui/params/Params.tsx'
 import type { JSX } from 'react'
 
 type ITab = {

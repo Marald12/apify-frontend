@@ -1,24 +1,29 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import Home from './pages/Home.tsx'
-import UrlContext from './contexts/url.context.ts'
+import Home from './pages/home/Home.tsx'
 import { useState } from 'react'
-import { ResponseContext } from './contexts/response.context.ts'
+import { TabsContext } from './contexts/tabs.context.ts'
+import { tabInit } from './components/tabs/tab.init.ts'
+import { ActiveTabContext } from './contexts/active-tab.context.ts'
+import './assets/styles/base.scss'
+import { PinTabsContext } from './contexts/pin-tabs.context.ts'
 
 function App() {
-	const [url, setUrl] = useState('https://jsonplaceholder.typicode.com/users/1')
-	const [method, setMethod] = useState('GET')
-	const [data, setData] = useState({})
+	const [tabs, setTabs] = useState([tabInit])
+	const [activeTab, setActiveTab] = useState(1)
+	const [pinTabs, setPinTabs] = useState<number[]>([])
 
 	return (
-		<UrlContext.Provider value={{ url, setUrl, method, setMethod }}>
-			<ResponseContext.Provider value={{ data, setData }}>
-				<BrowserRouter>
-					<Routes>
-						<Route path='/' element={<Home />} />
-					</Routes>
-				</BrowserRouter>
-			</ResponseContext.Provider>
-		</UrlContext.Provider>
+		<TabsContext.Provider value={{ tabs, setTabs }}>
+			<ActiveTabContext.Provider value={{ activeTab, setActiveTab }}>
+				<PinTabsContext.Provider value={{ pinTabs, setPinTabs }}>
+					<BrowserRouter>
+						<Routes>
+							<Route path='/' element={<Home />} />
+						</Routes>
+					</BrowserRouter>
+				</PinTabsContext.Provider>
+			</ActiveTabContext.Provider>
+		</TabsContext.Provider>
 	)
 }
 

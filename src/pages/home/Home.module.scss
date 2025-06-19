@@ -26,4 +26,12 @@
 		height: 90vh;
 		flex: 25%;
 	}
+
+	.result {
+		min-width: 200px;
+		padding: 15px;
+		height: 100%;
+		overflow-y: auto;
+		overflow-x: auto;
+	}
 }
