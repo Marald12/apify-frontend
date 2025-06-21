@@ -18,5 +18,8 @@ export default defineConfig({
 				`
 			}
 		}
+	},
+	optimizeDeps: {
+		include: ['react-json-view']
 	}
 })

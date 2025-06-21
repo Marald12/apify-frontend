@@ -2,37 +2,33 @@ import axios from 'axios'
 import { useActiveTab } from './update-active-tab.hook.ts'
 
 export const useRequestFetch = () => {
-	const { tab, updateTab } = useActiveTab()
+	const { tab } = useActiveTab()
 
 	return async () => {
 		try {
 			if (!tab) return
+			const start = performance.now()
 			const response = await axios(tab.url, {
 				method: tab.method,
 				headers: {
 					'Content-Type': 'application/json'
 				},
+				data: tab.body,
 				params: tab.params.reduce((acc: Record<string, string>, i) => {
 					acc[i.title] = i.value
 					return acc
 				}, {})
 			})
+			const end = performance.now()
 
-			updateTab('result', response)
-		} catch (error) {
-			if (axios.isAxiosError(error) && error.response) {
-				updateTab('result', error.response)
-			} else {
-				console.error('Ошибка запроса:', error)
-				updateTab('result', {
-					status: 0,
-					statusText: 'Network Error',
-					headers: {},
-					// @ts-ignore
-					data: error.message,
-					config: {}
-				} as any)
+			return {
+				data: response.data,
+				headers: response.headers,
+				status: response.status,
+				duration: (end - start).toFixed(2)
 			}
+		} catch (error) {
+			return error
 		}
 	}
 }

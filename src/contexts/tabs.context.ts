@@ -1,5 +1,5 @@
 import { createContext, type Dispatch, type SetStateAction } from 'react'
-import type { AxiosResponse } from 'axios'
+import type { UseQueryResult } from 'react-query'
 
 export type IItem = {
 	id: number
@@ -10,8 +10,9 @@ export type IItem = {
 		title: string
 		value: string
 	}[]
-	result: AxiosResponse<any, any>
+	response?: UseQueryResult<any, any> & { duration: number }
 	order: number
+	body: any
 }
 
 type TabsContextInitialState = {

@@ -1,0 +1,23 @@
+.result {
+	min-width: 300px;
+
+	&__header {
+		border-bottom: 1px solid #eee;
+		padding: 12px;
+		display: flex;
+		gap: 10px;
+
+		&_status {
+			padding: 5px;
+			@include mediumText('Roboto');
+			color: #fff;
+		}
+	}
+
+	&__content {
+		padding: 15px;
+		overflow-y: auto;
+		overflow-x: auto;
+		height: 94%;
+	}
+}

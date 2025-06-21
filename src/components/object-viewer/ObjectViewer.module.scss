@@ -1,6 +1,5 @@
 .ov__block {
-	font-family: monospace;
-	font-size: 14px;
+	@include smallText('Roboto');
 	color: #2d2d2d;
 }
 
@@ -25,12 +24,13 @@
 
 .ov__arrow {
 	color: #a855f7;
-	font-size: 12px;
+	@include ultraSmallText('Roboto');
 }
 
 .ov__dot {
 	color: #9ca3af;
-	font-size: 10px;
+	@include smallText('Roboto');
+	@include smallText('Roboto');
 }
 
 .ov__key {

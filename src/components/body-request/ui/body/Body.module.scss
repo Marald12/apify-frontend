@@ -1,0 +1,12 @@
+.body {
+	&__header {
+		padding: 15px;
+		display: flex;
+		align-items: center;
+		gap: 20px;
+
+		> span {
+			@include bigText('Montserrat');
+		}
+	}
+}

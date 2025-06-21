@@ -18,17 +18,11 @@
 			background: #7ecf2b;
 			padding: 4px 6px;
 			border-radius: 4px;
-			font-family: 'Roboto', sans-serif;
-			font-weight: 500;
-			font-size: 14px;
-			line-height: 16px;
+			@include smallText('Roboto', 500);
 		}
 
 		> span {
-			font-family: 'Montserrat', sans-serif;
-			font-weight: 500;
-			font-size: 16px;
-			line-height: 18px;
+			@include mediumText('Montserrat');
 			white-space: nowrap;
 
 			> input {
@@ -75,10 +69,7 @@
 			> span {
 				display: flex;
 				padding: 10px 5px;
-				font-family: 'Roboto', sans-serif;
-				font-weight: 500;
-				font-size: 16px;
-				line-height: 18px;
+				@include mediumText('Roboto');
 				border-bottom: 1px solid #d5d5d5;
 			}
 
@@ -91,10 +82,7 @@
 				list-style: none;
 				transition: 0.3s ease-in-out;
 
-				font-family: 'Montserrat', sans-serif;
-				font-weight: 500;
-				font-size: 14px;
-				line-height: 16px;
+				@include smallText('Montserrat', 500);
 
 				&:last-child {
 					border-bottom-left-radius: 12px;

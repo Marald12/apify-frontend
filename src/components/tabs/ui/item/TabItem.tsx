@@ -9,10 +9,8 @@ import { TabsContext } from '../../../../contexts/tabs.context.ts'
 import { useActiveTab } from '../../../../hooks/update-active-tab.hook.ts'
 import { IoMdArrowDropdown } from 'react-icons/io'
 import { useOutside } from '../../../../hooks/outside.hook.ts'
-import { FaPen, FaRegClone, FaRegTrashAlt } from 'react-icons/fa'
 import { LuPin } from 'react-icons/lu'
-import { tabInit } from '../../tab.init.ts'
-import { PinTabsContext } from '../../../../contexts/pin-tabs.context.ts'
+import TabItemDropDownMenu from './dropdown-menu/TabItemDropDownMenu.tsx'
 
 const TabItem: FC<ITabItemProps> = ({
 	item,
@@ -22,18 +20,16 @@ const TabItem: FC<ITabItemProps> = ({
 	pin
 }) => {
 	const { activeTab, setActiveTab } = useContext(ActiveTabContext)
-	const { tabs, setTabs } = useContext(TabsContext)
-	const { pinTabs, setPinTabs } = useContext(PinTabsContext)
+	const { setTabs } = useContext(TabsContext)
 
 	const { updateTab } = useActiveTab()
+	const [isOpenDropdownMenu, setIsOpenDropdownMenu] = useState(false)
 
+	const ref = useOutside<any>(() => setIsOpenDropdownMenu(false))
 	const [focus, setFocus] = useState(false)
+
 	const [activeRenameTab, setActiveRenameTab] = useState<number>(0)
-
 	const inputRef = useRef<HTMLInputElement>(null)
-
-	const [open, setOpen] = useState(false)
-	const ref = useOutside<HTMLDivElement>(() => setOpen(false))
 
 	const currentBackgroundColor = methodsList.find(
 		i => i.value === item.method
@@ -47,15 +43,34 @@ const TabItem: FC<ITabItemProps> = ({
 	useEffect(() => {
 		if (item.title === '' && activeRenameTab === 0)
 			updateTab('title', 'Без названия')
+
+		const pressKeyHandler = (event: KeyboardEvent) => {
+			if (event.code === 'Enter') {
+				setActiveRenameTab(0)
+			}
+		}
+
+		window.addEventListener('keyup', pressKeyHandler)
+
+		return () => {
+			window.removeEventListener('keyup', pressKeyHandler)
+		}
 	}, [activeRenameTab, item.title])
 
-	const removeClickHandler = () => {
-		setOpen(false)
-		if (pinTabs.find(i => item.id === i))
-			setPinTabs(prev => prev.filter(i => i !== item.id))
-		setTabs(prev => prev.filter(i => i.id !== item.id))
-		if (tabs.length === 1) setTabs(prev => [...prev, tabInit])
-	}
+	useEffect(() => {
+		const pressKeyHandler = (event: KeyboardEvent) => {
+			if (event.code === 'F2') {
+				setActiveRenameTab(activeTab)
+				setTimeout(() => inputRef.current?.focus(), 0)
+			}
+		}
+
+		window.addEventListener('keyup', pressKeyHandler)
+
+		return () => {
+			window.removeEventListener('keyup', pressKeyHandler)
+		}
+	}, [activeTab])
 
 	return (
 		<Draggable
@@ -100,50 +115,16 @@ const TabItem: FC<ITabItemProps> = ({
 			{!pin && (
 				<button
 					className={styles.item__right}
-					onClick={() => {
-						if (open) {
-							return setOpen(false)
-						}
-
-						setOpen(true)
-					}}
+					onClick={() => setIsOpenDropdownMenu(true)}
 				>
 					<IoMdArrowDropdown size={21} />
-					<div ref={ref} className={cn(styles.popup, open && styles.open)}>
-						<div
-							onClick={() => {
-								setOpen(false)
-								setPinTabs(prev => [...prev, item.id])
-							}}
-						>
-							<LuPin /> Закрепить
-						</div>
-						<div
-							onClick={() => {
-								setOpen(false)
-								focusInputHandler()
-							}}
-						>
-							<FaPen /> Переиминовать
-						</div>
-						<div
-							onClick={() => {
-								setOpen(false)
-								setTabs(prev => [
-									...prev,
-									{
-										...item,
-										id: tabs[tabs.length - 1].id + 1
-									}
-								])
-							}}
-						>
-							<FaRegClone /> Дублировать
-						</div>
-						<div onClick={removeClickHandler}>
-							<FaRegTrashAlt /> Удалить
-						</div>
-					</div>
+					<TabItemDropDownMenu
+						ref={ref}
+						item={item}
+						open={isOpenDropdownMenu}
+						setOpen={setIsOpenDropdownMenu}
+						focusFunction={focusInputHandler}
+					/>
 				</button>
 			)}
 			{pin && (

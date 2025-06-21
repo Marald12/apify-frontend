@@ -1,6 +1,6 @@
-import type { InternalAxiosRequestConfig } from 'axios'
+import type { IItem } from '../../contexts/tabs.context.ts'
 
-export const tabInit = {
+export const tabInit: IItem = {
 	id: 1,
 	title: 'Новый запрос',
 	method: 'GET',
@@ -11,14 +11,7 @@ export const tabInit = {
 			value: '5'
 		}
 	],
-	result: {
-		data: '',
-		config: {
-			headers: {}
-		} as InternalAxiosRequestConfig,
-		headers: {},
-		status: 402,
-		statusText: ''
-	},
-	order: 1
+	response: undefined,
+	order: 1,
+	body: {}
 }

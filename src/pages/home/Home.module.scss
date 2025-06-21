@@ -9,7 +9,6 @@
 		border-left: 1px solid #eee;
 		border-bottom: 1px solid #eee;
 		height: 90vh;
-		flex: 25%;
 	}
 
 	> div:nth-child(2) {
@@ -17,21 +16,11 @@
 		border-right: 1px solid #eee;
 		border-bottom: 1px solid #eee;
 		height: 90vh;
-		flex: 50%;
 	}
 
 	> div:nth-child(3) {
 		border-right: 1px solid #eee;
 		border-bottom: 1px solid #eee;
 		height: 90vh;
-		flex: 25%;
-	}
-
-	.result {
-		min-width: 200px;
-		padding: 15px;
-		height: 100%;
-		overflow-y: auto;
-		overflow-x: auto;
 	}
 }

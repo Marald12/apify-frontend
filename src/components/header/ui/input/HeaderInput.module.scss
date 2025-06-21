@@ -8,10 +8,7 @@
 		border-radius: 8px;
 		border: 1px solid #eee;
 		padding: 10px 10px 10px 120px;
-		font-family: 'Roboto', sans-serif;
-		font-weight: 400;
-		font-size: 16px;
-		line-height: 18px;
+		@include mediumText('Roboto', 400);
 		color: #545454;
 
 		&:focus {

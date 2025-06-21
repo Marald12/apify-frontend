@@ -1,11 +1,7 @@
-.params {
-	&__header {
-		padding: 15px;
-
-		> span {
-			@include bigText('Montserrat');
-		}
-	}
+.body {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
 
 	&__add {
 		background-color: #eee;
@@ -23,9 +19,8 @@
 	}
 
 	&__items {
-		margin-top: 5px;
 		display: flex;
 		flex-direction: column;
-		gap: 5px;
+		gap: 10px;
 	}
 }

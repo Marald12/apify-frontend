@@ -1,0 +1,42 @@
+.item {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+	background: #eee;
+	padding: 5px 15px;
+	transition: all 0.3s ease;
+	cursor: grab;
+
+	&.disabled {
+		background-color: #d9d7d7;
+	}
+
+	&_inputs {
+		display: flex;
+		align-items: center;
+
+		&_drag {
+			margin-top: 4px;
+			margin-right: 10px;
+			cursor: pointer;
+		}
+
+		> input {
+			background: none;
+			border: none;
+			outline: none;
+			@include smallText('Roboto');
+			width: 350px;
+		}
+	}
+
+	&_buttons {
+		display: flex;
+	}
+
+	&_trash {
+		margin-left: 5px;
+		cursor: pointer;
+	}
+}
