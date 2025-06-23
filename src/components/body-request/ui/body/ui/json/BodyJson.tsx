@@ -2,6 +2,7 @@ import styles from './BodyJson.module.scss'
 import ReactJson from 'react-json-view'
 import { useEffect } from 'react'
 import { useActiveTab } from '../../../../../../hooks/update-active-tab.hook.ts'
+import { initialParams } from '../../../../../double-input/double-input.init.ts'
 
 const BodyJson = () => {
 	const { updateTab, tab } = useActiveTab()
@@ -13,7 +14,25 @@ const BodyJson = () => {
 	}
 
 	useEffect(() => {
+		if (!tab?.headers) return
+
 		updateTab('body', {})
+
+		updateTab(
+			'headers',
+			tab?.headers.find(i => i.title === 'Content-Type')
+				? tab.headers.map(i =>
+						i.title === 'Content-Type' ? { ...i, value: 'json/application' } : i
+					)
+				: [
+						...tab.headers,
+						{
+							...initialParams,
+							title: 'Content-Type',
+							value: 'json/application'
+						}
+					]
+		)
 	}, [])
 
 	return (

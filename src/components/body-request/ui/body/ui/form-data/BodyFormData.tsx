@@ -1,11 +1,11 @@
 import styles from './BodyFormData.module.scss'
 import { useEffect, useState } from 'react'
 import DoubleInput from '../../../../../double-input/DoubleInput.tsx'
-import { FaRegTrashAlt } from 'react-icons/fa'
 import { useActiveTab } from '../../../../../../hooks/update-active-tab.hook.ts'
+import HeaderAddComponent from '../../../../../header-add-component/HeaderAddComponent.tsx'
 
 const BodyFormData = () => {
-	const { updateTab } = useActiveTab()
+	const { updateTab, tab } = useActiveTab()
 
 	const initInputItem = {
 		id: 1,
@@ -30,6 +30,28 @@ const BodyFormData = () => {
 		updateTab('body', formData)
 	}, [inputItems])
 
+	useEffect(() => {
+		if (!tab?.headers) return
+
+		updateTab(
+			'headers',
+			tab?.headers.find(i => i.title === 'Content-Type')
+				? tab.headers.map(i =>
+						i.title === 'Content-Type'
+							? { ...i, value: 'multipart/form-data' }
+							: i
+					)
+				: [
+						...tab.headers,
+						{
+							...initInputItem,
+							title: 'Content-Type',
+							value: 'multipart/form-data'
+						}
+					]
+		)
+	}, [])
+
 	const updateInputItem = (
 		item: typeof initInputItem,
 		key: keyof typeof initInputItem,
@@ -49,24 +71,18 @@ const BodyFormData = () => {
 
 	return (
 		<div className={styles.body}>
-			<div className={styles.body__add}>
-				<span
-					onClick={() =>
-						setInputItems(prev => [
-							...prev,
-							{
-								...initInputItem,
-								id: inputItems[inputItems.length - 1].id + 1
-							}
-						])
-					}
-				>
-					+ Добавить
-				</span>
-				<span onClick={() => setInputItems(() => [initInputItem])}>
-					<FaRegTrashAlt /> Удалить все
-				</span>
-			</div>
+			<HeaderAddComponent
+				onAddItem={() =>
+					setInputItems(prev => [
+						...prev,
+						{
+							...initInputItem,
+							id: inputItems[inputItems.length - 1].id + 1
+						}
+					])
+				}
+				onDeleteAll={() => setInputItems(() => [initInputItem])}
+			/>
 			<div className={styles.body__items}>
 				{inputItems.map(item => (
 					<DoubleInput
@@ -84,6 +100,7 @@ const BodyFormData = () => {
 								return [{ ...initInputItem }]
 							})
 						}
+						checked={item.isDisabled}
 					/>
 				))}
 			</div>

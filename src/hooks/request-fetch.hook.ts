@@ -7,11 +7,22 @@ export const useRequestFetch = () => {
 	return async () => {
 		try {
 			if (!tab) return
+
+			const bearerToken = tab.authorization
+				? `Bearer ${tab.authorization?.token}`
+				: ''
+
 			const start = performance.now()
 			const response = await axios(tab.url, {
 				method: tab.method,
 				headers: {
-					'Content-Type': 'application/json'
+					...tab.headers
+						.filter(i => !i.isDisabled)
+						.reduce((acc: Record<string, string>, i) => {
+							acc[i.title] = i.value
+							return acc
+						}, {}),
+					Authorization: bearerToken
 				},
 				data: tab.body,
 				params: tab.params.reduce((acc: Record<string, string>, i) => {

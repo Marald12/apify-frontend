@@ -1,5 +1,6 @@
 import { createContext, type Dispatch, type SetStateAction } from 'react'
 import type { UseQueryResult } from 'react-query'
+import { initialParams } from '../components/double-input/double-input.init'
 
 export type IItem = {
 	id: number
@@ -13,6 +14,10 @@ export type IItem = {
 	response?: UseQueryResult<any, any> & { duration: number }
 	order: number
 	body: any
+	authorization?: {
+		token: string
+	}
+	headers: (typeof initialParams)[]
 }
 
 type TabsContextInitialState = {

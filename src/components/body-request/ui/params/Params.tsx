@@ -1,13 +1,11 @@
 import styles from './Params.module.scss'
-import { FaRegTrashAlt } from 'react-icons/fa'
-import { IoToggleSharp } from 'react-icons/io5'
 import { useEffect, useState } from 'react'
 import Draggable from '../../../draggable/Draggable.tsx'
 import { initialParams } from '../../../double-input/double-input.init.ts'
 import { sortCards } from '../../../../utils/sort-draggable.ts'
 import { useActiveTab } from '../../../../hooks/update-active-tab.hook.ts'
 import DoubleInput from '../../../double-input/DoubleInput.tsx'
-
+import HeaderAddComponent from '../../../header-add-component/HeaderAddComponent.tsx'
 const Params = () => {
 	type IItem = typeof initialParams
 
@@ -56,15 +54,12 @@ const Params = () => {
 			<div className={styles.params__header}>
 				<span>Query параметры</span>
 			</div>
-			<div className={styles.params__add}>
-				<span onClick={() => addItemToList()}>+ Добавить</span>
-				<span onClick={() => setParamsList(() => [initialParams])}>
-					<FaRegTrashAlt /> Удалить все
-				</span>
-				<span>
-					<IoToggleSharp /> Описание
-				</span>
-			</div>
+			<HeaderAddComponent
+				onAddItem={() => addItemToList()}
+				onDeleteAll={() => setParamsList(() => [initialParams])}
+				onDescriptionChange={() => {}}
+				isActiveDescription={true}
+			/>
 			<div className={styles.params__items}>
 				{[...paramsList].sort(sortCards<IItem>).map(item => (
 					<Draggable
@@ -95,6 +90,7 @@ const Params = () => {
 								})
 							}}
 							isDraggable={true}
+							checked={item.isDisabled}
 						/>
 					</Draggable>
 				))}

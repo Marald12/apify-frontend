@@ -10,7 +10,8 @@ const Body = () => {
 	const currentBodyType = bodySelectOptions.find(
 		option => option.value === activeBodyType
 	)
-	const CurrentBodyComponent = currentBodyType?.component as () => JSX.Element
+	const CurrentBodyComponent =
+		currentBodyType?.component !== null ? currentBodyType?.component : null
 
 	return (
 		<div className={styles.body}>
@@ -19,11 +20,12 @@ const Body = () => {
 				<Select
 					options={bodySelectOptions}
 					styles={bodySelectStyles}
+					defaultValue={bodySelectOptions[0]}
 					placeholder='Выберите тип'
 					onChange={e => setActiveBodyType(e?.value || '')}
 				/>
 			</div>
-			{currentBodyType && <CurrentBodyComponent />}
+			{CurrentBodyComponent && <CurrentBodyComponent />}
 		</div>
 	)
 }

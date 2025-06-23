@@ -5,12 +5,13 @@ import type { FC } from 'react'
 import type { IDoubleInputInterfaceProps } from './double-input.interface.ts'
 import cn from 'classnames'
 
-const ParamItem: FC<IDoubleInputInterfaceProps> = ({
+const DoubleInput: FC<IDoubleInputInterfaceProps> = ({
 	item,
 	onCheckboxClick,
 	onNameChange,
 	onValueChange,
 	onDeleteClick,
+	checked,
 	className,
 	isDraggable = false,
 	...props
@@ -42,7 +43,7 @@ const ParamItem: FC<IDoubleInputInterfaceProps> = ({
 				/>
 			</div>
 			<div className={styles.item_buttons}>
-				<input type='checkbox' onChange={onCheckboxClick} />
+				<input type='checkbox' checked={checked} onChange={onCheckboxClick} />
 				<span className={styles.items_item_trash} onClick={onDeleteClick}>
 					<FaRegTrashAlt />
 				</span>
@@ -51,4 +52,4 @@ const ParamItem: FC<IDoubleInputInterfaceProps> = ({
 	)
 }
 
-export default ParamItem
+export default DoubleInput

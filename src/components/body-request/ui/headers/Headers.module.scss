@@ -1,0 +1,15 @@
+.wrapper {
+	&__header {
+		padding: 15px;
+
+		> span {
+			@include bigText('Montserrat');
+		}
+	}
+
+	&__items {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+	}
+}

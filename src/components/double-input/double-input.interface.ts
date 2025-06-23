@@ -15,4 +15,5 @@ export interface IDoubleInputInterfaceProps
 	onDeleteClick?: MouseEventHandler<HTMLSpanElement>
 	item: typeof initialParams
 	isDraggable?: boolean
+	checked?: boolean
 }
