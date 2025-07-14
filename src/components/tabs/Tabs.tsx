@@ -9,10 +9,14 @@ import { tabInit } from './tab.init.ts'
 import TabItem from './ui/item/TabItem.tsx'
 import { sortCards } from '../../utils/sort-draggable.ts'
 import useDebounce from '../../hooks/debounce.hook.ts'
+import { useThemeSwitch } from '../../hooks/theme-switch.hook.tsx'
+import cn from 'classnames'
 
 const Tabs = () => {
 	const { tabs, setTabs } = useContext(TabsContext)
 	const { pins } = useContext(PinTabsContext)
+
+	const { isDarkTheme } = useThemeSwitch()
 
 	const [currentItem, setCurrentItem] = useState<IItem | null>(null)
 
@@ -33,6 +37,7 @@ const Tabs = () => {
 					placeholder='Поиск...'
 					value={searchValue}
 					onChange={e => setSearchValue(e.target.value)}
+					className={isDarkTheme ? styles.dark : ''}
 				/>
 				<button
 					onClick={() =>
@@ -55,7 +60,7 @@ const Tabs = () => {
 				{pins.map(tab => {
 					const pinnedTab = tabs.find(item => item.id === tab)
 					if (!pinnedTab) return null
-					
+
 					return (
 						<TabItem
 							key={tab}
@@ -67,7 +72,11 @@ const Tabs = () => {
 						/>
 					)
 				})}
-				{pins.length > 0 && <div className={styles.tabs__items_line} />}
+				{pins.length > 0 && (
+					<div
+						className={cn(styles.tabs__items_line, isDarkTheme && styles.dark)}
+					/>
+				)}
 				{searchTab.sort(sortCards<IItem>).map(tab => (
 					<TabItem
 						key={tab.id}

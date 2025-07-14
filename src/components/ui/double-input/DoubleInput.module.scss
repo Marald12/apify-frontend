@@ -8,6 +8,15 @@
 	transition: all 0.3s ease;
 	cursor: grab;
 
+	&.dark {
+		background: #363636;
+		color: #fff;
+
+		&.disabled {
+			background-color: #515151;
+		}
+	}
+
 	&.disabled {
 		background-color: #d9d7d7;
 	}
@@ -22,6 +31,10 @@
 			margin-top: 4px;
 			margin-right: 10px;
 			cursor: pointer;
+		}
+
+		&.dark > input {
+			color: #fff;
 		}
 
 		> input {

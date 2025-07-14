@@ -9,6 +9,7 @@ import {
 	PinTabsContext,
 	TabsContext
 } from '../../../../../contexts/tabs.context.tsx'
+import { useThemeSwitch } from '../../../../../hooks/theme-switch.hook.tsx'
 
 const TabItemDropDownMenu = forwardRef<
 	HTMLDivElement,
@@ -16,6 +17,8 @@ const TabItemDropDownMenu = forwardRef<
 >(({ item, open, setOpen, focusFunction, ...props }, ref) => {
 	const { pins, setPins } = useContext(PinTabsContext)
 	const { tabs, setTabs } = useContext(TabsContext)
+
+	const { isDarkTheme } = useThemeSwitch()
 
 	const removeClickHandler = () => {
 		if (pins.find(i => item.id === i))
@@ -37,7 +40,15 @@ const TabItemDropDownMenu = forwardRef<
 	}
 
 	return (
-		<div ref={ref} className={cn(styles.popup, open && styles.open)} {...props}>
+		<div
+			ref={ref}
+			className={cn(
+				styles.popup,
+				open && styles.open,
+				isDarkTheme && styles.dark
+			)}
+			{...props}
+		>
 			<div
 				onClick={e =>
 					clickHandler(e, () =>

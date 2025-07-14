@@ -3,6 +3,21 @@
 		display: flex;
 		border-bottom: 1px solid #eee;
 
+		&.dark {
+			border-bottom: 1px solid #444;
+
+			> div {
+				&:hover,
+				&.active {
+					background: #363636;
+				}
+
+				&:not(:last-child) {
+					border-right: 1px solid #444;
+				}
+			}
+		}
+
 		> div {
 			padding: 15px;
 			@include mediumText('Montserrat');

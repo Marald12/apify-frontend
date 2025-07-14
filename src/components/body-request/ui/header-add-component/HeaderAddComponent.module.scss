@@ -4,6 +4,11 @@
 	display: flex;
 	gap: 20px;
 
+	&.dark {
+		background-color: #363636;
+		color: #fff;
+	}
+
 	> span {
 		@include smallText('Montserrat', 500);
 		cursor: pointer;

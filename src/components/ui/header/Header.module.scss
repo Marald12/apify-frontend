@@ -5,6 +5,14 @@
 	justify-content: space-between;
 	align-items: center;
 
+	&.dark {
+		border-bottom: 1px solid #444;
+
+		> a {
+			color: #fff;
+		}
+	}
+
 	> a {
 		@include boldText('Montserrat');
 		transition: 0.2s ease-in-out;
@@ -22,5 +30,11 @@
 		display: flex;
 		gap: 20px;
 		width: 43%;
+	}
+
+	&__theme {
+		display: flex;
+		gap: 15px;
+		align-items: center;
 	}
 }

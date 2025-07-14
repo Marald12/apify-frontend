@@ -1,10 +1,12 @@
 import styles from './Authorization.module.scss'
 import { useActiveTab } from '../../../../hooks/update-active-tab.hook'
+import cn from 'classnames'
+import { useThemeSwitch } from '../../../../hooks/theme-switch.hook.tsx'
 
 const Authorization = () => {
 	const { updateTab, tab } = useActiveTab()
 
-	console.log(tab)
+	const { isDarkTheme } = useThemeSwitch()
 
 	return (
 		<div className={styles.wrapper}>
@@ -22,7 +24,7 @@ const Authorization = () => {
 				/>
 				<label htmlFor='title-auth'>Включить авторизацию</label>
 			</div>
-			<div className={styles.wrapper__content}>
+			<div className={cn(styles.wrapper__content, isDarkTheme && styles.dark)}>
 				{tab?.authorization && (
 					<input
 						type='text'

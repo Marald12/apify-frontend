@@ -4,6 +4,7 @@ import { FaRegTrashAlt } from 'react-icons/fa'
 import type { FC } from 'react'
 import type { IDoubleInputInterfaceProps } from './double-input.interface.ts'
 import cn from 'classnames'
+import { useThemeSwitch } from '../../../hooks/theme-switch.hook.tsx'
 
 const DoubleInput: FC<IDoubleInputInterfaceProps> = ({
 	item,
@@ -16,12 +17,19 @@ const DoubleInput: FC<IDoubleInputInterfaceProps> = ({
 	isDraggable = false,
 	...props
 }) => {
+	const { isDarkTheme } = useThemeSwitch()
+
 	return (
 		<div
-			className={cn(className, styles.item, item.isDisabled && styles.disabled)}
+			className={cn(
+				className,
+				styles.item,
+				item.isDisabled && styles.disabled,
+				isDarkTheme && styles.dark
+			)}
 			{...props}
 		>
-			<div className={styles.item_inputs}>
+			<div className={cn(styles.item_inputs, isDarkTheme && styles.dark)}>
 				{isDraggable && (
 					<span className={styles.item_inputs_drag}>
 						<MdDragIndicator />

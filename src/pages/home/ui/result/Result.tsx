@@ -3,9 +3,13 @@ import { fixRelativePaths, isHtml, isObject } from '../../../../utils/check.ts'
 import styles from './Result.module.scss'
 import { responseStatusCodeMap } from '../../../../utils/response-status-code-map.ts'
 import ObjectViewer from '../../../../components/object-viewer/ObjectViewer.tsx'
+import { useThemeSwitch } from '../../../../hooks/theme-switch.hook.tsx'
+import cn from 'classnames'
 
 const Result = () => {
 	const { tab } = useActiveTab()
+
+	const { isDarkTheme } = useThemeSwitch()
 
 	const response = tab?.response
 
@@ -21,7 +25,7 @@ const Result = () => {
 	return (
 		<div className={styles.result}>
 			{response && (
-				<div className={styles.result__header}>
+				<div className={cn(styles.result__header, isDarkTheme && styles.dark)}>
 					<div
 						style={{
 							backgroundColor:

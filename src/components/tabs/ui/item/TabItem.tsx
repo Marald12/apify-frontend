@@ -11,6 +11,7 @@ import { IoMdArrowDropdown } from 'react-icons/io'
 import { useOutside } from '../../../../hooks/outside.hook.ts'
 import { LuPin } from 'react-icons/lu'
 import TabItemDropDownMenu from './dropdown-menu/TabItemDropDownMenu.tsx'
+import { useThemeSwitch } from '../../../../hooks/theme-switch.hook.tsx'
 
 const TabItem: FC<ITabItemProps> = ({
 	item,
@@ -21,6 +22,8 @@ const TabItem: FC<ITabItemProps> = ({
 }) => {
 	const { activeTab, setActiveTab } = useContext(ActiveTabContext)
 	const { setTabs } = useContext(TabsContext)
+
+	const { isDarkTheme } = useThemeSwitch()
 
 	const { updateTab } = useActiveTab()
 	const [isOpenDropdownMenu, setIsOpenDropdownMenu] = useState(false)
@@ -76,7 +79,8 @@ const TabItem: FC<ITabItemProps> = ({
 		<Draggable
 			className={cn(
 				styles.item,
-				activeTab === item.id && !pin && styles.active
+				activeTab === item.id && !pin && styles.active,
+				isDarkTheme && styles.dark
 			)}
 			onClick={() => setActiveTab(item.id)}
 			groupId='tabs'
@@ -117,7 +121,7 @@ const TabItem: FC<ITabItemProps> = ({
 					className={styles.item__right}
 					onClick={() => setIsOpenDropdownMenu(true)}
 				>
-					<IoMdArrowDropdown size={21} />
+					<IoMdArrowDropdown size={21} color={isDarkTheme ? '#fff' : '#000'} />
 					<TabItemDropDownMenu
 						ref={ref}
 						item={item}

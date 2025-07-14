@@ -62,9 +62,23 @@
 			transform: translateY(-50px) scale(0);
 			z-index: -1;
 			box-shadow: 1px 1px 5px 0 rgba(0, 0, 0, 0.35);
-
 			display: flex;
 			flex-direction: column;
+
+			&.dark {
+				background: #262626;
+				color: #fff;
+
+				> div {
+					&:not(:last-child) {
+						border-bottom: 1px solid #444;
+					}
+
+					&:hover {
+						background: #414141;
+					}
+				}
+			}
 
 			> span {
 				display: flex;
@@ -118,6 +132,10 @@
 
 	&:hover {
 		background-color: #eee;
+
+		&.dark {
+			background-color: #444;
+		}
 	}
 }
 

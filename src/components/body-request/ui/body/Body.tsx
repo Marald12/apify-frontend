@@ -2,10 +2,13 @@ import styles from './Body.module.scss'
 import Select from 'react-select'
 import { bodySelectOptions } from './body-select.options.ts'
 import { bodySelectStyles } from './body-select.styles.ts'
-import { type JSX, useState } from 'react'
+import { useState } from 'react'
+import { useThemeSwitch } from '../../../../hooks/theme-switch.hook.tsx'
 
 const Body = () => {
 	const [activeBodyType, setActiveBodyType] = useState('')
+
+	const { isDarkTheme } = useThemeSwitch()
 
 	const currentBodyType = bodySelectOptions.find(
 		option => option.value === activeBodyType
@@ -19,7 +22,7 @@ const Body = () => {
 				<span>Тело запроса</span>
 				<Select
 					options={bodySelectOptions}
-					styles={bodySelectStyles}
+					styles={bodySelectStyles(isDarkTheme)}
 					defaultValue={bodySelectOptions[0]}
 					placeholder='Выберите тип'
 					onChange={e => setActiveBodyType(e?.value || '')}

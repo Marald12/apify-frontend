@@ -9,3 +9,13 @@
 	max-width: 1440px;
 	margin: 0 auto;
 }
+
+body.dark {
+	background: #262626;
+	color: #fff;
+}
+
+body.light {
+	background: #fff;
+	color: #000;
+}

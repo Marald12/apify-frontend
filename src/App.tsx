@@ -5,6 +5,7 @@ import TabsProvider from './contexts/tabs.context.tsx'
 import { ActiveTabContext } from './contexts/active-tab.context.ts'
 import './assets/styles/base.scss'
 import { QueryClient, QueryClientProvider } from 'react-query'
+import { ThemeProvider } from './hooks/theme-switch.hook.tsx'
 
 function App() {
 	const [activeTab, setActiveTab] = useState(1)
@@ -15,11 +16,13 @@ function App() {
 		<QueryClientProvider client={queryClient}>
 			<TabsProvider>
 				<ActiveTabContext.Provider value={{ activeTab, setActiveTab }}>
-					<BrowserRouter>
-						<Routes>
-							<Route path='/' element={<Home />} />
-						</Routes>
-					</BrowserRouter>
+					<ThemeProvider>
+						<BrowserRouter>
+							<Routes>
+								<Route path='/' element={<Home />} />
+							</Routes>
+						</BrowserRouter>
+					</ThemeProvider>
 				</ActiveTabContext.Provider>
 			</TabsProvider>
 		</QueryClientProvider>
