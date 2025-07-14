@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { type IItem, TabsContext } from '../contexts/tabs.context.ts'
+import { type IItem, TabsContext } from '../contexts/tabs.context.tsx'
 import { ActiveTabContext } from '../contexts/active-tab.context.ts'
 
 export const useActiveTab = () => {

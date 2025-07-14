@@ -1,11 +1,12 @@
 import styles from './Params.module.scss'
 import { useEffect, useState } from 'react'
 import Draggable from '../../../draggable/Draggable.tsx'
-import { initialParams } from '../../../double-input/double-input.init.ts'
+import { initialParams } from '../../../ui/double-input/double-input.init.ts'
 import { sortCards } from '../../../../utils/sort-draggable.ts'
 import { useActiveTab } from '../../../../hooks/update-active-tab.hook.ts'
-import DoubleInput from '../../../double-input/DoubleInput.tsx'
-import HeaderAddComponent from '../../../header-add-component/HeaderAddComponent.tsx'
+import DoubleInput from '../../../ui/double-input/DoubleInput.tsx'
+import HeaderAddComponent from '../header-add-component/HeaderAddComponent.tsx'
+
 const Params = () => {
 	type IItem = typeof initialParams
 

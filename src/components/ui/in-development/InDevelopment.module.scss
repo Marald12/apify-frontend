@@ -1,0 +1,7 @@
+.wrapper {
+	padding: 15px;
+
+	> span {
+		@include bigText('Monteserrat');
+	}
+}

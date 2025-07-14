@@ -15,6 +15,8 @@
 	&_inputs {
 		display: flex;
 		align-items: center;
+		justify-content: space-between;
+		width: 70%;
 
 		&_drag {
 			margin-top: 4px;
@@ -27,7 +29,7 @@
 			border: none;
 			outline: none;
 			@include smallText('Roboto');
-			width: 350px;
+			max-width: 350px;
 		}
 	}
 

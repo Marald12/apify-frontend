@@ -1,15 +1,18 @@
 import styles from './Tabs.module.scss'
-import { type IItem, TabsContext } from '../../contexts/tabs.context.ts'
+import {
+	type IItem,
+	PinTabsContext,
+	TabsContext
+} from '../../contexts/tabs.context.tsx'
 import { useContext, useState } from 'react'
 import { tabInit } from './tab.init.ts'
 import TabItem from './ui/item/TabItem.tsx'
 import { sortCards } from '../../utils/sort-draggable.ts'
-import { PinTabsContext } from '../../contexts/pin-tabs.context.ts'
 import useDebounce from '../../hooks/debounce.hook.ts'
 
 const Tabs = () => {
 	const { tabs, setTabs } = useContext(TabsContext)
-	const { pinTabs } = useContext(PinTabsContext)
+	const { pins } = useContext(PinTabsContext)
 
 	const [currentItem, setCurrentItem] = useState<IItem | null>(null)
 
@@ -38,8 +41,8 @@ const Tabs = () => {
 							...prev,
 							{
 								...tabInit,
-								id: tabs[tabs.length - 1].id + 1,
-								order: tabs[tabs.length - 1].order + 1
+								id: tabs[tabs.length - 1].id + 1 || 1,
+								order: tabs[tabs.length - 1].order + 1 || 1
 							}
 						])
 					}
@@ -49,17 +52,22 @@ const Tabs = () => {
 			</div>
 
 			<div className={styles.tabs__items}>
-				{pinTabs.map(tab => (
-					<TabItem
-						key={tab}
-						item={tabs.find(item => item.id === tab)!}
-						currentItem={currentItem}
-						setCurrentItem={setCurrentItem}
-						draggable={false}
-						pin={true}
-					/>
-				))}
-				{pinTabs.length > 0 && <div className={styles.tabs__items_line} />}
+				{pins.map(tab => {
+					const pinnedTab = tabs.find(item => item.id === tab)
+					if (!pinnedTab) return null
+					
+					return (
+						<TabItem
+							key={tab}
+							item={pinnedTab}
+							currentItem={currentItem}
+							setCurrentItem={setCurrentItem}
+							draggable={false}
+							pin={true}
+						/>
+					)
+				})}
+				{pins.length > 0 && <div className={styles.tabs__items_line} />}
 				{searchTab.sort(sortCards<IItem>).map(tab => (
 					<TabItem
 						key={tab.id}

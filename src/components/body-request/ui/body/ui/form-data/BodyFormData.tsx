@@ -1,8 +1,8 @@
 import styles from './BodyFormData.module.scss'
 import { useEffect, useState } from 'react'
-import DoubleInput from '../../../../../double-input/DoubleInput.tsx'
+import DoubleInput from '../../../../../ui/double-input/DoubleInput.tsx'
 import { useActiveTab } from '../../../../../../hooks/update-active-tab.hook.ts'
-import HeaderAddComponent from '../../../../../header-add-component/HeaderAddComponent.tsx'
+import HeaderAddComponent from '../../../header-add-component/HeaderAddComponent.tsx'
 
 const BodyFormData = () => {
 	const { updateTab, tab } = useActiveTab()

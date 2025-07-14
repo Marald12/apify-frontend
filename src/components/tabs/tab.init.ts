@@ -1,5 +1,5 @@
-import type { IItem } from '../../contexts/tabs.context.ts'
-import { initialParams } from '../double-input/double-input.init.ts'
+import type { IItem } from '../../contexts/tabs.context.tsx'
+import { initialParams } from '../ui/double-input/double-input.init.ts'
 
 export const tabInit: IItem = {
 	id: 1,

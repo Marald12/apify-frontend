@@ -1,33 +1,27 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Home from './pages/home/Home.tsx'
 import { useState } from 'react'
-import { TabsContext } from './contexts/tabs.context.ts'
-import { tabInit } from './components/tabs/tab.init.ts'
+import TabsProvider from './contexts/tabs.context.tsx'
 import { ActiveTabContext } from './contexts/active-tab.context.ts'
 import './assets/styles/base.scss'
-import { PinTabsContext } from './contexts/pin-tabs.context.ts'
 import { QueryClient, QueryClientProvider } from 'react-query'
 
 function App() {
-	const [tabs, setTabs] = useState([tabInit])
 	const [activeTab, setActiveTab] = useState(1)
-	const [pinTabs, setPinTabs] = useState<number[]>([])
 
 	const queryClient = new QueryClient()
 
 	return (
 		<QueryClientProvider client={queryClient}>
-			<TabsContext.Provider value={{ tabs, setTabs }}>
+			<TabsProvider>
 				<ActiveTabContext.Provider value={{ activeTab, setActiveTab }}>
-					<PinTabsContext.Provider value={{ pinTabs, setPinTabs }}>
-						<BrowserRouter>
-							<Routes>
-								<Route path='/' element={<Home />} />
-							</Routes>
-						</BrowserRouter>
-					</PinTabsContext.Provider>
+					<BrowserRouter>
+						<Routes>
+							<Route path='/' element={<Home />} />
+						</Routes>
+					</BrowserRouter>
 				</ActiveTabContext.Provider>
-			</TabsContext.Provider>
+			</TabsProvider>
 		</QueryClientProvider>
 	)
 }

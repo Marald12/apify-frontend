@@ -4,20 +4,22 @@ import { LuPin } from 'react-icons/lu'
 import { FaPen, FaRegClone, FaRegTrashAlt } from 'react-icons/fa'
 import { forwardRef, useContext } from 'react'
 import { tabInit } from '../../../tab.init.ts'
-import { PinTabsContext } from '../../../../../contexts/pin-tabs.context.ts'
 import type { ITabItemDropdownMenuProps } from './props.interface.ts'
-import { TabsContext } from '../../../../../contexts/tabs.context.ts'
+import {
+	PinTabsContext,
+	TabsContext
+} from '../../../../../contexts/tabs.context.tsx'
 
 const TabItemDropDownMenu = forwardRef<
 	HTMLDivElement,
 	ITabItemDropdownMenuProps
 >(({ item, open, setOpen, focusFunction, ...props }, ref) => {
-	const { pinTabs, setPinTabs } = useContext(PinTabsContext)
+	const { pins, setPins } = useContext(PinTabsContext)
 	const { tabs, setTabs } = useContext(TabsContext)
 
 	const removeClickHandler = () => {
-		if (pinTabs.find(i => item.id === i))
-			setPinTabs(prev => prev.filter(i => i !== item.id))
+		if (pins.find(i => item.id === i))
+			setPins(prev => prev.filter(i => i !== item.id))
 
 		setTabs(prev => prev.filter(i => i.id !== item.id))
 
@@ -39,7 +41,7 @@ const TabItemDropDownMenu = forwardRef<
 			<div
 				onClick={e =>
 					clickHandler(e, () =>
-						setPinTabs(prev => {
+						setPins(prev => {
 							if (prev.find(i => i === item.id))
 								return prev.filter(i => i !== item.id)
 
@@ -48,7 +50,7 @@ const TabItemDropDownMenu = forwardRef<
 					)
 				}
 			>
-				<LuPin /> {pinTabs.find(i => i === item.id) ? 'Открепить' : 'Закрепить'}
+				<LuPin /> {pins.find(i => i === item.id) ? 'Открепить' : 'Закрепить'}
 			</div>
 			<div onClick={e => clickHandler(e, focusFunction)}>
 				<FaPen /> Переиминовать

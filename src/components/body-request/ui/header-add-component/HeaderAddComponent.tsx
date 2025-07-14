@@ -1,6 +1,6 @@
 import type { FC } from 'react'
 import styles from './HeaderAddComponent.module.scss'
-import type { IHeaderAddComponentProps } from './header-add-component.interface'
+import type { IHeaderAddComponentProps } from './header-add-component.interface.ts'
 import { IoToggleSharp } from 'react-icons/io5'
 import { FaRegTrashAlt } from 'react-icons/fa'
 

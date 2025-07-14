@@ -1,5 +1,5 @@
 import styles from './BodyRequest.module.scss'
-import { tabsList } from '../tabs/tabs.array.ts'
+import { tabsList } from './tabs.array.ts'
 import { useState } from 'react'
 import cn from 'classnames'
 

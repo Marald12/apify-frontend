@@ -1,4 +1,4 @@
-import type { IItem } from '../../../../../contexts/tabs.context.ts'
+import type { IItem } from '../../../../../contexts/tabs.context.tsx'
 import type {
 	DetailedHTMLProps,
 	Dispatch,

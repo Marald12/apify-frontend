@@ -1,5 +1,5 @@
 import type { StylesConfig } from 'react-select'
-import { methodsList } from '../../../../utils/methods-list.ts'
+import { methodsList } from '../../../../../utils/methods-list.ts'
 
 type MethodOption = {
 	value: string

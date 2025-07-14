@@ -1,7 +1,7 @@
 import styles from './HeaderInput.module.scss'
 import Select from 'react-select'
-import { methodsList } from '../../../../utils/methods-list.ts'
-import { useActiveTab } from '../../../../hooks/update-active-tab.hook.ts'
+import { methodsList } from '../../../../../utils/methods-list.ts'
+import { useActiveTab } from '../../../../../hooks/update-active-tab.hook.ts'
 import { headerSelectStyles } from './header-select.styles.ts'
 
 const HeaderInput = () => {

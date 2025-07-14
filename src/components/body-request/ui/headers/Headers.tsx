@@ -1,7 +1,7 @@
 import { useActiveTab } from '../../../../hooks/update-active-tab.hook'
-import { initialParams } from '../../../double-input/double-input.init'
-import DoubleInput from '../../../double-input/DoubleInput'
-import HeaderAddComponent from '../../../header-add-component/HeaderAddComponent'
+import { initialParams } from '../../../ui/double-input/double-input.init'
+import DoubleInput from '../../../ui/double-input/DoubleInput'
+import HeaderAddComponent from '../header-add-component/HeaderAddComponent'
 import styles from './Headers.module.scss'
 
 const Headers = () => {
