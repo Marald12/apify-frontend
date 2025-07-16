@@ -1,0 +1,132 @@
+@keyframes popupShow {
+	from {
+		transform: scale(0.9) translateY(20px);
+		opacity: 0;
+	}
+	to {
+		transform: scale(1) translateY(0);
+		opacity: 1;
+	}
+}
+
+@keyframes popupHide {
+	from {
+		transform: scale(1) translateY(0);
+		opacity: 1;
+	}
+	to {
+		transform: scale(0.9) translateY(20px);
+		opacity: 0;
+	}
+}
+
+.popup {
+	z-index: -1000;
+	opacity: 0;
+	transition: opacity 0.3s ease-in;
+
+	&.showed {
+		z-index: 1000;
+		opacity: 1;
+	}
+
+	&__overlay {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		background-color: rgba(0, 0, 0, 0.5);
+		z-index: 1000;
+		opacity: 0;
+		transition: opacity 0.3s ease-in;
+
+		.popup.showed & {
+			opacity: 1;
+		}
+	}
+
+	&__window {
+		min-width: 350px;
+		min-height: 150px;
+		background-color: #fff;
+		margin-top: auto;
+		margin-bottom: auto;
+		border-radius: 12px;
+		padding: 20px;
+		position: relative;
+		opacity: 0;
+		transform: scale(0.9) translateY(20px);
+		animation-fill-mode: forwards;
+
+		.popup.showed & {
+			animation: popupShow 0.4s ease-out forwards;
+		}
+
+		.popup.hiding & {
+			animation: popupHide 0.3s ease-in forwards;
+		}
+
+		&_close {
+			position: absolute;
+			right: 20px;
+			top: 23px;
+			cursor: pointer;
+		}
+
+		&_header {
+			display: flex;
+			align-items: center;
+			gap: 5px;
+
+			> span {
+				@include bigText('Roboto');
+
+				&.active {
+					color: #5d82d9;
+				}
+
+				&:not(:nth-child(2)) {
+					cursor: pointer;
+				}
+			}
+		}
+
+		> form {
+			display: flex;
+			flex-direction: column;
+			gap: 10px;
+			margin-top: 15px;
+
+			> input {
+				width: 100%;
+				border: 1px solid #444;
+				background: none;
+				padding: 7px 14px;
+				border-radius: 8px;
+				outline: none;
+				@include smallText('Roboto');
+
+				&:focus {
+					border: 1px solid $base-color;
+				}
+			}
+
+			> button {
+				margin-top: 10px;
+			}
+		}
+
+		&.dark {
+			background-color: #262626;
+			color: #fff;
+
+			> form > input {
+				color: #fff;
+			}
+		}
+	}
+}

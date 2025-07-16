@@ -13,6 +13,7 @@ import { MdOutlineDarkMode, MdOutlineLightMode } from 'react-icons/md'
 import { useThemeSwitch } from '../../../hooks/theme-switch.hook.tsx'
 import cn from 'classnames'
 import { darkSelectStyles } from '../../../utils/dark-select.styles.ts'
+import AuthButton from '../../auth-button/AuthButton.tsx'
 
 type ThemeOption = {
 	value: string
@@ -83,7 +84,7 @@ const Header = () => {
 					}
 					styles={darkSelectStyles(isDarkTheme)}
 				/>
-				<span>Авторизоваться</span>
+				<AuthButton />
 			</div>
 		</header>
 	)
