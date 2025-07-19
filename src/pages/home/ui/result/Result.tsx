@@ -13,9 +13,14 @@ const Result = () => {
 
 	const response = tab?.response
 
-	const baseUrl = tab?.url
-		? new URL(tab.url, window.location.origin).origin
-		: ''
+	let baseUrl = ''
+	if (tab?.url) {
+		try {
+			baseUrl = new URL(tab.url, window.location.origin).origin
+		} catch {
+			baseUrl = ''
+		}
+	}
 
 	const safeHtml = typeof response?.data === 'string' ? response.data : ''
 
@@ -44,6 +49,8 @@ const Result = () => {
 					<div dangerouslySetInnerHTML={{ __html: fixedHtml }} />
 				) : isObject(response?.data) ? (
 					<ObjectViewer data={response.data} />
+				) : typeof response?.data === 'string' ? (
+					<pre>{response.data}</pre>
 				) : (
 					!tab?.response && <span>Нет данных для отображения</span>
 				)}

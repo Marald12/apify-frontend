@@ -98,20 +98,34 @@
 		> form {
 			display: flex;
 			flex-direction: column;
-			gap: 10px;
+			gap: 15px;
 			margin-top: 15px;
 
-			> input {
-				width: 100%;
-				border: 1px solid #444;
-				background: none;
-				padding: 7px 14px;
-				border-radius: 8px;
-				outline: none;
-				@include smallText('Roboto');
+			> div {
+				position: relative;
 
-				&:focus {
-					border: 1px solid $base-color;
+				> input {
+					width: 100%;
+					border: 1px solid #444;
+					background: none;
+					padding: 7px 14px;
+					border-radius: 8px;
+					outline: none;
+					@include smallText('Roboto');
+
+					&:focus {
+						border: 1px solid $base-color;
+					}
+				}
+
+				> span {
+					position: absolute;
+					bottom: -10px;
+					right: 0;
+					background-color: #cc7373;
+					padding: 2px 8px;
+					border-radius: 8px;
+					@include smallText('Roboto');
 				}
 			}
 
@@ -124,7 +138,7 @@
 			background-color: #262626;
 			color: #fff;
 
-			> form > input {
+			> form > div > input {
 				color: #fff;
 			}
 		}

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import HeaderInput from './ui/input/HeaderInput.tsx'
 import Button from '../button/Button.tsx'
 import { useRequestFetch } from '../../../hooks/request-fetch.hook.ts'
-import { useQuery } from 'react-query'
+import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { useActiveTab } from '../../../hooks/update-active-tab.hook.ts'
 import { toast } from 'react-toastify'
 import { urlReg } from '../../../utils/url.reg.ts'
@@ -14,6 +14,8 @@ import { useThemeSwitch } from '../../../hooks/theme-switch.hook.tsx'
 import cn from 'classnames'
 import { darkSelectStyles } from '../../../utils/dark-select.styles.ts'
 import AuthButton from '../../auth-button/AuthButton.tsx'
+import { useAuth } from '../../../hooks/useAuth.ts'
+import { authService } from '../../../api/auth/auth.service.ts'
 
 type ThemeOption = {
 	value: string
@@ -43,6 +45,8 @@ const Header = () => {
 	const { tab, updateTab } = useActiveTab()
 	const fetch = useRequestFetch()
 	const { isDarkTheme, setIsDarkTheme } = useThemeSwitch()
+	const { isAuth } = useAuth()
+	const queryClient = useQueryClient()
 
 	const query = useQuery({
 		queryKey: ['mainFetch', tab?.url, tab?.method],
@@ -50,6 +54,15 @@ const Header = () => {
 		enabled: false,
 		onSuccess: data => updateTab('response', data),
 		onError: error => updateTab('response', error)
+	})
+
+	const { mutate } = useMutation({
+		//@ts-ignore
+		mutationFn: () => authService.logout(),
+		onSuccess: async () => {
+			toast.success('Вы успешно вышли из аккаунта.')
+			await queryClient.prefetchQuery('profile')
+		}
 	})
 
 	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -84,7 +97,11 @@ const Header = () => {
 					}
 					styles={darkSelectStyles(isDarkTheme)}
 				/>
-				<AuthButton />
+				{isAuth ? (
+					<Button onClick={() => mutate()}>Выйти</Button>
+				) : (
+					<AuthButton />
+				)}
 			</div>
 		</header>
 	)

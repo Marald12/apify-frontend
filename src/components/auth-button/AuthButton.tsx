@@ -4,11 +4,11 @@ import cn from 'classnames'
 import { useThemeSwitch } from '../../hooks/theme-switch.hook.tsx'
 import { useOutsideToggle } from '../../utils/outside-toggle.hook.ts'
 import { IoClose } from 'react-icons/io5'
-import { useState } from 'react'
+import { type FC, useState } from 'react'
 import LoginForm from './ui/LoginForm.tsx'
 import RegisterForm from './ui/RegisterForm.tsx'
 
-const AuthButton = () => {
+const AuthButton: FC = () => {
 	const { ref, isShow, setIsShow } = useOutsideToggle(false)
 	const { isDarkTheme } = useThemeSwitch()
 
@@ -59,8 +59,10 @@ const AuthButton = () => {
 									Регистрация
 								</span>
 							</div>
-							{authType === 'login' && <LoginForm />}
-							{authType === 'register' && <RegisterForm />}
+							{authType === 'login' && <LoginForm setIsShow={setIsShow} />}
+							{authType === 'register' && (
+								<RegisterForm setIsShow={setIsShow} />
+							)}
 						</div>
 					</div>
 				</div>
