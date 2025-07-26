@@ -6,25 +6,34 @@ import { sortCards } from '../../../../utils/sort-draggable.ts'
 import { useActiveTab } from '../../../../hooks/update-active-tab.hook.ts'
 import DoubleInput from '../../../ui/double-input/DoubleInput.tsx'
 import HeaderAddComponent from '../header-add-component/HeaderAddComponent.tsx'
+import type { IItem } from '../../../../contexts/tabs.context.tsx'
 
 const Params = () => {
-	type IItem = typeof initialParams
+	type ILocalItem = Pick<IItem, 'params'> & {}
 
-	const { updateTab } = useActiveTab()
+	const { updateTab, tab } = useActiveTab()
 
-	const [paramsList, setParamsList] = useState([initialParams])
-	const [currentItem, setCurrentItem] = useState<IItem | null>(null)
+	const [paramsList, setParamsList] = useState(
+		tab?.params ? tab.params : [initialParams]
+	)
+	const [currentItem, setCurrentItem] = useState<ILocalItem | null>(null)
+
+	console.log(tab?.params)
+
+	useEffect(() => {
+		if (tab?.params) {
+			setParamsList(tab.params)
+		}
+	}, [tab?.id])
 
 	useEffect(() => {
 		updateTab(
 			'params',
-			paramsList
-				.filter(j => !j.isDisabled)
-				.map(j => ({ title: j.title, value: j.value }))
+			paramsList.filter(j => !j.isDisabled)
 		)
 	}, [paramsList])
 
-	const updateItem = <T,>(id: number, key: string, data: T) => {
+	const updateItem = <T,>(id: string, key: string, data: T) => {
 		setParamsList(prev => {
 			const tempItem = prev.find(i => i.id === id)
 			if (!tempItem) return prev
@@ -45,8 +54,7 @@ const Params = () => {
 			...prev,
 			{
 				...initialParams,
-				id: prev[prev.length - 1].id + 1,
-				order: prev[prev.length - 1].order + 1
+				order: prev.length === 0 ? 1 : prev[prev.length - 1].order + 1
 			}
 		])
 
@@ -62,7 +70,7 @@ const Params = () => {
 				isActiveDescription={true}
 			/>
 			<div className={styles.params__items}>
-				{[...paramsList].sort(sortCards<IItem>).map(item => (
+				{[...paramsList].sort(sortCards).map(item => (
 					<Draggable
 						key={item.id}
 						item={item}

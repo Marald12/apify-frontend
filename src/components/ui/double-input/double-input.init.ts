@@ -1,5 +1,7 @@
+import { v4 as uuidv4 } from 'uuid'
+
 export const initialParams = {
-	id: 1,
+	id: uuidv4(),
 	title: '',
 	value: '',
 	order: 1,

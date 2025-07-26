@@ -11,6 +11,7 @@ import { sortCards } from '../../utils/sort-draggable.ts'
 import useDebounce from '../../hooks/debounce.hook.ts'
 import { useThemeSwitch } from '../../hooks/theme-switch.hook.tsx'
 import cn from 'classnames'
+import { v4 as uuidv4 } from 'uuid'
 
 const Tabs = () => {
 	const { tabs, setTabs } = useContext(TabsContext)
@@ -46,7 +47,7 @@ const Tabs = () => {
 							...prev,
 							{
 								...tabInit,
-								id: tabs[tabs.length - 1].id + 1 || 1,
+								id: uuidv4(),
 								order: tabs[tabs.length - 1].order + 1 || 1
 							}
 						])

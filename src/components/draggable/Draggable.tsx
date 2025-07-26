@@ -1,5 +1,6 @@
 import { type DragEvent, type FC } from 'react'
 import type { IDraggableProps } from './draggable.interface.ts'
+import { useThemeSwitch } from '../../hooks/theme-switch.hook.tsx'
 
 const Draggable: FC<IDraggableProps> = ({
 	children,
@@ -16,18 +17,23 @@ const Draggable: FC<IDraggableProps> = ({
 	type IEvent = DragEvent<HTMLDivElement>
 	type IItem = typeof item & { __groupId?: string }
 
+	const { isDarkTheme } = useThemeSwitch()
+
+	const backgroundColor = isDarkTheme ? '#262626' : color
+	const focusBackfroundColor = isDarkTheme ? '#363636' : focusColor
+
 	const dragStartHandler = (e: IEvent, draggedItem: IItem) => {
 		e.dataTransfer.effectAllowed = 'move'
 		setCurrentItem({ ...draggedItem, __groupId: groupId })
 	}
 
 	const dragEndHandler = (e: IEvent) => {
-		e.currentTarget.style.backgroundColor = color
+		e.currentTarget.style.backgroundColor = backgroundColor
 	}
 
 	const dragOverHandler = (e: IEvent) => {
 		e.preventDefault()
-		e.currentTarget.style.backgroundColor = focusColor
+		e.currentTarget.style.backgroundColor = focusBackfroundColor
 	}
 
 	const dropHandler = (e: IEvent, draggedItem: IItem) => {
@@ -43,7 +49,7 @@ const Draggable: FC<IDraggableProps> = ({
 			})
 		)
 
-		e.currentTarget.style.backgroundColor = color
+		e.currentTarget.style.backgroundColor = backgroundColor
 	}
 
 	return (

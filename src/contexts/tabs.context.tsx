@@ -10,18 +10,24 @@ import {
 import type { UseQueryResult } from 'react-query'
 import { initialParams } from '../components/ui/double-input/double-input.init'
 import { tabInit } from '../components/tabs/tab.init.ts'
+import { ActiveTabContext } from './active-tab.context.ts'
 
 const LOCAL_STORAGE_TABS_KEY = 'tabsData'
 const LOCAL_STORAGE_PIN_KEY = 'pinData'
+const LOCAL_STORAGE_ACTIVE_TAB_KEY = 'activeTabData'
 
 export type IItem = {
-	id: number
+	id: string
 	title: string
 	method: string
 	url: string
 	params: {
+		id: string
 		title: string
 		value: string
+		order: number
+		isDisabled: boolean
+		description: null
 	}[]
 	response?: UseQueryResult<any, any> & { duration: number }
 	order: number
@@ -83,15 +89,36 @@ const TabsProvider: FC<PropsWithChildren> = ({ children }) => {
 		return []
 	})
 
+	const [activeTab, setActiveTab] = useState<string>(() => {
+		const savedActiveTabs = localStorage.getItem(LOCAL_STORAGE_ACTIVE_TAB_KEY)
+		if (savedActiveTabs) {
+			try {
+				const parsed = JSON.parse(savedActiveTabs)
+				if (typeof parsed === 'string') {
+					return parsed
+				}
+			} catch {
+				// ignore parse error
+			}
+		}
+		return ''
+	})
+
 	useEffect(() => {
 		localStorage.setItem(LOCAL_STORAGE_TABS_KEY, JSON.stringify(tabs))
 		localStorage.setItem(LOCAL_STORAGE_PIN_KEY, JSON.stringify(pins))
-	}, [tabs, pins])
+		localStorage.setItem(
+			LOCAL_STORAGE_ACTIVE_TAB_KEY,
+			JSON.stringify(activeTab)
+		)
+	}, [tabs, pins, activeTab])
 
 	return (
 		<TabsContext.Provider value={{ tabs, setTabs }}>
 			<PinTabsContext.Provider value={{ pins, setPins }}>
-				{children}
+				<ActiveTabContext.Provider value={{ activeTab, setActiveTab }}>
+					{children}
+				</ActiveTabContext.Provider>
 			</PinTabsContext.Provider>
 		</TabsContext.Provider>
 	)

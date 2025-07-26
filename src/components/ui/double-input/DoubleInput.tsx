@@ -39,13 +39,13 @@ const DoubleInput: FC<IDoubleInputInterfaceProps> = ({
 					type='text'
 					placeholder='Название'
 					disabled={item.isDisabled}
-					value={item.title}
+					value={item.title ?? ''}
 					onChange={onNameChange}
 				/>
 				<input
 					type='text'
 					placeholder='Значение'
-					value={item.value}
+					value={item.value ?? ''}
 					disabled={item.isDisabled}
 					onChange={onValueChange}
 				/>

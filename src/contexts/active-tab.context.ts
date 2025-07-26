@@ -1,11 +1,11 @@
 import { createContext, type Dispatch, type SetStateAction } from 'react'
 
 type ActiveTabContextInitialState = {
-	activeTab: number
-	setActiveTab: Dispatch<SetStateAction<number>>
+	activeTab: string
+	setActiveTab: Dispatch<SetStateAction<string>>
 }
 
 export const ActiveTabContext = createContext<ActiveTabContextInitialState>({
-	activeTab: 1,
+	activeTab: '',
 	setActiveTab: () => {}
 })

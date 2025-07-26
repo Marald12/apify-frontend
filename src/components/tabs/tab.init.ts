@@ -6,12 +6,7 @@ export const tabInit: IItem = {
 	title: 'Новый запрос',
 	method: 'GET',
 	url: '',
-	params: [
-		{
-			title: 'postId',
-			value: '5'
-		}
-	],
+	params: [],
 	response: undefined,
 	order: 1,
 	body: {},
